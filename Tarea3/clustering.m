@@ -8,7 +8,8 @@ function clustering(numClusters,matrix)
         data_vector=single(concatVectors(matrix));
         data_vector=getRandDes(data_vector);
     end
-    [centers,assignments]=kmeans(data_vector,numClusters);
+    data_vector=data_vector';%es la matriz traspuesta
+    [assignments,centers]=kmeans(data_vector,numClusters);
     save(nameCenter,'centers');
     save(nameAssig,'assignments');
 end
