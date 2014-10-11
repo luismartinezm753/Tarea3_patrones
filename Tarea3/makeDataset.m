@@ -1,4 +1,6 @@
-function makeDataset(path,size)
+function makeDataset(path,size,flag)
+    %el flag sirve para ver si es de la clase perro o no/perro, cero para
+    %No-Dog y 1 para Dog
     %Crea el dataset tanto la parte de test como train, los conjunto de train y
     %test son disjuntos
     data=dir(path);
@@ -17,7 +19,7 @@ function makeDataset(path,size)
         end
         actualFolder=dir([path nameFolder]);
         images=getRandImg(actualFolder, nameFolder, path);
-        saveImages(images,folder(k));
+        saveImages(images,folder(k),flag);
         k=k+1;
         n=n+numel(images);
     end
@@ -34,10 +36,17 @@ function images=getRandImg(dir, nameFolder,path)
         images{i}=imread([path nameFolder '/' dir(perm(i)).name]);
     end
 end
-function saveImages(images,k)
+function saveImages(images,k,class)
     pathTest='Dataset/Test/';
     pathTrain='Dataset/Train/';
     flag=2;
+    if class>0
+        pathTrain=strcat(pathTrain,'Dog/');
+        pathTest=strcat(pathTest,'Dog/');
+    else
+        pathTrain=strcat(pathTrain,'No-Dog/');
+        pathTest=strcat(pathTest,'No-Dog/');
+    end
     for i=1:numel(images)
         if isempty(images{i})
             continue
