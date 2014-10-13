@@ -3,10 +3,11 @@
 %centers son los centros de los clusters
 %ej de train_path: C:\Users\Vincent\git\Tarea3_patrones\Tarea3\Dataset\Train
 function svm = trainer(train_path, centers)
-    perros = LoadImg(strcat(train_path, '\Dog\'), '*.jpg');
-    otros = LoadImg(strcat(train_path, '\No-Dog\'), '*.jpg');
+    perros = LoadImg(strcat(train_path, '/Dog/'), '*.jpg');%son / en linux
+    otros = LoadImg(strcat(train_path, '/No-Dog/'), '*.jpg');
     class_dog = [];
     class_no_dog = [];
+    numel(perros)
     for i = 1:numel(perros)
         class_dog = [class_dog; 'perro'];
     end
