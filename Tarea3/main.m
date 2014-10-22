@@ -20,7 +20,7 @@ k=100;
 trainer=cell(1,7);
 %entrenamos el SVM
 for j=1:numel(centers)
-    trainer{j}=trainer(pathTrain,centers{j});
+    trainer{j}=training(pathTrain,centers{j}.centers);
     saveTrainer(trainer{j},k);
     k=k+200;
 end

@@ -8,7 +8,7 @@ function hist = histogramas(centers, imgs)
     for i =1:numel(classes)
         class{i} = num2str(classes(i));
     end
-    knn = fitcknn(centers, class', 'NumNeighbors', 1); %ClassificationKNN.fit para versión 2013
+    knn = fitcknn(centers, class', 'NumNeighbors', 1);
     for i = 1:numel(imgs)
         hist(i,:) = histograma(imgs{i}, knn, numClust);
     end
