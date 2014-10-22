@@ -5,6 +5,6 @@
 function [ obtained, expected ] = testing(test_path, svm, centers)
     [perros, otros, expected] = process_img( test_path );
     hist = [histogramas(centers, perros); histogramas(centers, otros)];
-    [obtained] = predict(svm,hist);
+    [obtained, scores] = predict(svm,hist);
 end
 
