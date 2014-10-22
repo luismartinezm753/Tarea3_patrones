@@ -1,4 +1,4 @@
-function clustering(numClusters,matrix)
+function centers=clustering(numClusters,matrix)
 %makes k cluster from data in matrix
     num=num2str(numClusters);
     nameCenter=['centers_' num '.mat'];
