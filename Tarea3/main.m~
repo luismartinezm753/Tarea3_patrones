@@ -20,7 +20,7 @@ pathTest='Dataset/Test';
 k=100;
 trainer=cell(1,7);
 test=cell(1,7);
-filtrate=cell(1,7);
+filtrat
 treshold=[0.2 0.4 0.5 0.6 0.7 0.8 0.9];
 %entrenamos el SVM
 for j=1:numel(centers)
@@ -33,7 +33,6 @@ for j=1:numel(centers)
     end
     test{j}=testing(pathTest,trainer{j},centers{j},centers);%entrenamos el svm
     save(test{j},['test_' num2str(k) '.mat']);
-    filtrate{j}=filtrate(test{j}.scores,test{j}.expected,treshol(j));
-    save(filtrate{j},['filtrate_' num2str(k) '.mat']);
+    
     k=k+200;
 end
