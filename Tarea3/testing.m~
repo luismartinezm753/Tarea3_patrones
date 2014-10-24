@@ -5,8 +5,9 @@
 function [ obtained, expected, scores ] = testing(test_path, svm, centers,k)
     name=['hist_' num2str(k) '.mat'];
     if(exist(name,'file')==2)
-        hist=load(name);
+        
     else
+        
         [perros, otros, expected] = process_img( test_path );
         hist = [histogramas(centers, perros); histogramas(centers, otros)];
         save(name,'hist')

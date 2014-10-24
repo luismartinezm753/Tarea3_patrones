@@ -18,21 +18,23 @@ disp('clusters listos');
 pathTrain='Dataset/Train';%son / xq es linux
 pathTest='Dataset/Test';
 k=100;
-trainer=cell(1,7);
+train=cell(1,7);
 test=cell(1,7);
-filtrat
+filtrate=cell(1,7);
 treshold=[0.2 0.4 0.5 0.6 0.7 0.8 0.9];
 %entrenamos el SVM
 for j=1:numel(centers)
     name=['trainer_' num2str(k) '.mat'];
     if (exist(name,'file')==2)
-        trainer{j}=load(name);
+        train{j}=load(name);
     else
-        trainer{j}=training(pathTrain,centers{j}.centers);
-        saveTrainer(trainer{j},k);
+        train{j}=training(pathTrain,centers{j}.centers);
+        saveTrainer(train{j},k);
     end
-    test{j}=testing(pathTest,trainer{j},centers{j},centers);%entrenamos el svm
+    disp('Test');
+    test{j}=testing(pathTest,train{j},centers{j}.centers,k);%entrenamos el svm
     save(test{j},['test_' num2str(k) '.mat']);
-    
+    filtrate{j}=filtrate(test{j}.scores,test{j}.expected,treshold(j));
+    save(filtrate{j},['filtrate_' num2str(k) '.mat']);
     k=k+200;
 end
