@@ -34,10 +34,9 @@ for j=1:numel(centers)
     [obtained, expected, score] = testing(pathTest,train{j}.trainer,centers{j}.centers,k);%entrenamos el svm
     scores{j} = score;
     save(['score_' num2str(k) '.mat'], 'score');
-    
+    figure;
     hold on
     for i=1:numel(treshold)
-        figure;
         [targets, outputs]=filtrar(score, expected, treshold(i));
         plotroc(targets, outputs);
     end
