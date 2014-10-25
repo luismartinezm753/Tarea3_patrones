@@ -8,19 +8,17 @@ for i=[100 300 500 700 900 1100 1300]
     name=['centers_' num2str(i) '.mat'];
     if (exist(name,'file')==2)
         centers{k}=load(name);
-        k=k+1;
     else
         centers{k}=clustering(i,data);
-        k=k+1;
     end
+    k=k+1;
 end
 disp('clusters listos');
 pathTrain='Dataset/Train';%son / xq es linux
 pathTest='Dataset/Test';
 k=100;
 train=cell(1,7);
-test=cell(1,7);
-filtrate=cell(1,7);
+scores=cell(1,7);
 treshold=[0.2 0.4 0.5 0.6 0.7 0.8 0.9];
 %entrenamos el SVM
 for j=1:numel(centers)
@@ -29,12 +27,20 @@ for j=1:numel(centers)
         train{j}=load(name);
     else
         train{j}=training(pathTrain,centers{j}.centers);
-        saveTrainer(train{j},k);
+        train = train{j};
+        save(name, 'train');
     end
     disp('Test');
-    test{j}=testing(pathTest,train{j}.trainer,centers{j}.centers,k);%entrenamos el svm
-    save(test{j},['test_' num2str(k) '.mat']);
-    filtrate{j}=filtrate(test{j}.scores,test{j}.expected,treshold(j));
-    save(filtrate{j},['filtrate_' num2str(k) '.mat']);
+    [obtained, expected, score] = testing(pathTest,train{j}.trainer,centers{j}.centers,k);%entrenamos el svm
+    scores{j} = score;
+    save(['score_' num2str(k) '.mat'], 'score');
+    
+    hold on
+    for i=1:numel(treshold)
+        figure;
+        [targets, outputs]=filtrar(score, expected, treshold(i));
+        plotroc(targets, outputs);
+    end
+    hold off
     k=k+200;
 end

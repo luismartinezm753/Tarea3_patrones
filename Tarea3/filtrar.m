@@ -2,7 +2,7 @@
 %las clases esperadas (expected) y el umbral (threshold).
 %Filtra los resltados dependiendo de las clases, poniendo un 1 en la clase
 %a la que corresponda.
-function [ targets, outputs ] = filtrate(scores, expected, threshold)
+function [ targets, outputs ] = filtrar(scores, expected, threshold)
     targets = [];
     outputs = [];
     diff = max(max(scores(:,1)), max(scores(:,2))) - min(min(scores(:,1)), min(scores(:,2)));
